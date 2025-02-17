@@ -1,0 +1,135 @@
+@font-face {
+  font-family: "NanumMyeongjo";
+  src: url(NanumMyeongjo.otf);
+}
+
+body {
+  font-family: "NanumMyeongjo";
+  /* background-color: #eeeeee; */
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.scroll-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.scroll-area {
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+/* 1페이지 */
+.page1-image-container {
+  position: relative;
+  text-align: center;
+}
+
+.page1-image {
+  width: 100%;
+}
+
+.page1-image-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  font-size: 60px;
+  font-weight: 600;
+  color: white;
+
+  @media (max-width: 900px) {
+    font-size: 35px;
+  }
+}
+
+/* 2페이지 */
+.page2-container {
+  padding: 30px;
+}
+
+.page2-title {
+  font-size: 50px;
+}
+
+/* 3페이지 */
+.page3-container {
+  padding: 30px;
+}
+
+.page3-title {
+  font-size: 50px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 50px;
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .container {
+    padding: 50px 25px 50px 25px;
+  }
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    padding: 50px 20px 50px 20px;
+  }
+  .card-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+  }
+}
+
+.card {
+  border-radius: 10px;
+  background-color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.card-img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 100%;
+  aspect-ratio: 10 / 5;
+}
+
+.card-txt {
+  padding: 0px 15px 0px 15px;
+}
+
+.card-name {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+
+.card-description {
+  font-size: 16px;
+  color: #555555;
+  margin-top: 10px;
+}
