@@ -1,5 +1,44 @@
-김민제
-Kim Minje
+일단 박고 시작할 것
 
+import java.util.* 
+import jav.io.*
 
-editted on feature/2
+throws IOException 추가
+
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+int n = Integer.parseInt(br.readLine());
+
+StringTokenizer st = new StringTokenizer(br.readLine());
+int a = Integer.parseInt(st.nextToken());
+int b = Integer.parseInt(st.nextToken());
+
+br.close();
+
+Arrays.sort(arr);
+Arrays.sort(arr, Comparator.reverseOrder());
+Arrays.sort(arr, Comparator.comparingInt(a -> a[1]));
+
+Collections.sort(list);
+Collections.sort(list, Collections.reverseOrder());
+Collections.sort(list, new Comparator<Xy>() {
+    @Override
+    public int compare(Xy a, Xy b) {
+        if (a.x != b.x){
+            return a.x - b.x;
+        }
+        else{
+            return a.y - b.y;
+        }
+    }
+});
+
+Stack s = new Stack();
+Queue q = new LinkedList();
+PriorityQueue pq = new PriorityQueue();
+Queue<int[]> q = new LinkedList<>();
+
+bw.write(a + "\n");
+bw.flush();
+bw.close();
