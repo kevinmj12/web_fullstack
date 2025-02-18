@@ -41,7 +41,9 @@ app.get("/youtuber/:id", function (req, res) {
 });
 
 app.get("/youtubers", function (req, res) {
-  res.json(youtuberDb);
+  let youtubers = {};
+  youtuberDb.forEach((val, idx) => (youtubers[idx] = val));
+  res.json(youtubers);
 });
 
 app.use(express.json());
@@ -51,6 +53,57 @@ app.post("/youtuber", function (req, res) {
   res.json({
     message: youtuberDb.get(id++).channelTitle + "님이 추가되었습니다.",
   });
+});
+
+app.delete("/youtuber/:id", function (req, res) {
+  let { id } = req.params;
+  id = parseInt(id);
+
+  let youtuber = youtuberDb.get(id);
+  if (youtuber == undefined) {
+    res.json({
+      message: `id ${id}에 해당되는 유튜버가 없습니다.`,
+    });
+  } else {
+    const channelTitle = youtuber.channelTitle;
+    youtuberDb.delete(id);
+
+    res.json({
+      message: `${channelTitle}님이 삭제되었습니다.`,
+    });
+  }
+});
+
+app.delete("/youtubers", function (req, res) {
+  if (youtuberDb.size == 0) {
+    res.json({
+      message: "유튜버가 존재하지 않습니다.",
+    });
+  } else {
+    youtuberDb.clear();
+    res.json({
+      message: "전체 유튜버가 초기화되었습니다.",
+    });
+  }
+});
+
+app.put("/youtuber/:id", function (req, res) {
+  let { id } = req.params;
+  id = parseInt(id);
+
+  let youtuber = youtuberDb.get(id);
+  if (youtuber == undefined) {
+    res.json({
+      message: `id ${id}에 해당되는 유튜버가 없습니다.`,
+    });
+  } else {
+    let channelTitle = youtuber.channelTitle;
+    youtuberDb.set(id, req.body);
+
+    res.json({
+      message: `${channelTitle}님의 정보가 수정되었습니다..`,
+    });
+  }
 });
 
 app.listen(3000);

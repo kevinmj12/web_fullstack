@@ -1,23 +1,18 @@
-const express = require("express");
-const app = express();
-const port = 3000;
+app.put("/youtuber/:id", function (req, res) {
+  let { id } = req.params;
+  id = parseInt(id);
 
-const people = [];
-people.push("Tom");
+  let youtuber = youtuberDb.get(id);
+  if (youtuber == undefined) {
+    res.json({
+      message: `id ${id}에 해당되는 유튜버가 없습니다.`,
+    });
+  } else {
+    let channelTitle = youtuber.channelTitle;
+    youtuberDb.set(id, req.body);
 
-// GET
-app.get("/get-people", function (req, res) {
-  res.send(people);
-});
-
-// POST
-app.use(express.json());
-app.post("/add-person", function (req, res) {
-  const name = req.body.name;
-  people.push(name);
-  res.send(`Add name ${name}!`);
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+    res.json({
+      message: `${channelTitle}님의 정보가 수정되었습니다..`,
+    });
+  }
 });
