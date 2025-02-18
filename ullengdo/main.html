@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <title>신비의 섬 울릉도</title>
     <link rel="stylesheet" href="main.css" />
+    <script type="text/javascript" src="./pages/page1.js"></script>
   </head>
 
   <body>
@@ -14,6 +15,19 @@
         <div class="page1-image-container">
           <img class="page1-image" src="./libs/images/ulleung.jpg" />
           <p class="page1-image-title">신비의 섬 울릉도</p>
+        </div>
+        <div id="page1-container">
+          <script type="module">
+            const exchangingRate = await getExchangingRate();
+            console.log(exchangingRate);
+
+            const container = document.getElementById("page1-container");
+
+            const paragraphElement = document.createElement("p");
+            paragraphElement.textContent = `환율: ${exchangingRate}원`;
+
+            container.appendChild(paragraphElement);
+          </script>
         </div>
       </div>
       <!-- 2페이지 -->

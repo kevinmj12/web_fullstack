@@ -1,6 +1,6 @@
 @font-face {
   font-family: "NanumMyeongjo";
-  src: url(NanumMyeongjo.otf);
+  src: url(./libs/fonts/NanumMyeongjo.otf);
 }
 
 body {
