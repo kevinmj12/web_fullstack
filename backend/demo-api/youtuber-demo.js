@@ -42,25 +42,39 @@ app.get("/youtuber/:id", function (req, res) {
 
 app.get("/youtubers", function (req, res) {
   let youtubers = {};
-  youtuberDb.forEach((val, idx) => (youtubers[idx] = val));
-  res.json(youtubers);
+
+  if (youtuberDb.size > 0) {
+    youtuberDb.forEach((val, idx) => (youtubers[idx] = val));
+    res.json(youtubers);
+  } else {
+    res.status(404).json({
+      message: "조회할 유튜버가 없습니다",
+    });
+  }
 });
 
 app.use(express.json());
-app.post("/youtuber", function (req, res) {
-  youtuberDb.set(id, req.body);
+app.post("/youtubers", function (req, res) {
+  const channelTitle = req.body.channelTitle;
+  if (channelTitle) {
+    youtuberDb.set(id, req.body);
 
-  res.json({
-    message: youtuberDb.get(id++).channelTitle + "님이 추가되었습니다.",
-  });
+    res.status(201).json({
+      message: youtuberDb.get(id++).channelTitle + "님이 추가되었습니다.",
+    });
+  } else {
+    res.status(400).json({
+      message: "유튜버 정보를 정확히 입력해주세요",
+    });
+  }
 });
 
-app.delete("/youtuber/:id", function (req, res) {
+app.delete("/youtubers/:id", function (req, res) {
   let { id } = req.params;
   id = parseInt(id);
 
   let youtuber = youtuberDb.get(id);
-  if (youtuber == undefined) {
+  if (youtuber) {
     res.json({
       message: `id ${id}에 해당되는 유튜버가 없습니다.`,
     });
@@ -92,7 +106,7 @@ app.put("/youtuber/:id", function (req, res) {
   id = parseInt(id);
 
   let youtuber = youtuberDb.get(id);
-  if (youtuber == undefined) {
+  if (youtuber) {
     res.json({
       message: `id ${id}에 해당되는 유튜버가 없습니다.`,
     });

@@ -1,18 +1,14 @@
-app.put("/youtuber/:id", function (req, res) {
-  let { id } = req.params;
-  id = parseInt(id);
-
-  let youtuber = youtuberDb.get(id);
-  if (youtuber == undefined) {
-    res.json({
-      message: `id ${id}에 해당되는 유튜버가 없습니다.`,
+.get((req, res) => {
+    var channels = [];
+    channelDb.forEach((val) => {
+      channels.push(val);
     });
-  } else {
-    let channelTitle = youtuber.channelTitle;
-    youtuberDb.set(id, req.body);
 
-    res.json({
-      message: `${channelTitle}님의 정보가 수정되었습니다..`,
-    });
-  }
-});
+    if (channels.length) {
+      res.json(channels);
+    } else {
+      res.status(404).json({
+        message: "조회할 채널이 없습니다.",
+      });
+    }
+  })
