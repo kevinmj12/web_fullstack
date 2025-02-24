@@ -1,6 +1,11 @@
 @font-face {
   font-family: "NanumMyeongjo";
-  src: url(NanumMyeongjo.otf);
+  src: url(./libs/fonts/NanumMyeongjo.otf);
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url(./libs/fonts/Pretendard-Regular.otf);
 }
 
 body {
@@ -48,6 +53,20 @@ body {
 
   @media (max-width: 900px) {
     font-size: 35px;
+  }
+}
+
+#page1-container {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  border: 2px gray solid;
+  border-radius: 16px;
+  margin: 15px;
+  padding: 15px 20px 15px 20px;
+  font-family: "Pretendard";
+  p {
+    margin: 0;
   }
 }
 
