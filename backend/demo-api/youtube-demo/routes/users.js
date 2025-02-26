@@ -1,6 +1,19 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
+const conn = require("../connection");
+
+connection.query("SELECT * FROM `users`", (err, rows, fields) => {
+  if (err instanceof Error) {
+    console.log(err);
+    return;
+  }
+  var { id, email, name, created_at } = rows[0];
+  console.log(id);
+  console.log(email);
+  console.log(name);
+  console.log(created_at);
+});
 
 let userDb = new Map();
 var id = 1;
