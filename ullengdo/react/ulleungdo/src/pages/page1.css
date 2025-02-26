@@ -1,0 +1,36 @@
+.page1-image-container {
+  position: relative;
+  text-align: center;
+}
+
+.page1-image {
+  width: 100%;
+}
+
+.page1-image-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  font-size: 60px;
+  font-weight: 600;
+  color: white;
+
+  @media (max-width: 900px) {
+    font-size: 35px;
+  }
+}
+
+#page1-container {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  border: 2px gray solid;
+  border-radius: 16px;
+  margin: 15px;
+  padding: 15px 20px 15px 20px;
+  font-family: "Pretendard";
+  p {
+    margin: 0;
+  }
+}

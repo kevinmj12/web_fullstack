@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>신비의 섬 울릉도</title>
+    <link rel="stylesheet" href="main.css" />
+    <script type="text/javascript" src="./pages/page1.js"></script>
+  </head>
+
+  <body>
+    <div class="scroll-container">
+      <!-- 1페이지 -->
+      <div class="scroll-area">
+        <div class="page1-image-container">
+          <img class="page1-image" src="./libs/images/ulleung.jpg" />
+          <p class="page1-image-title">신비의 섬 울릉도</p>
+        </div>
+        <div id="page1-container">
+          <p style="font-size: 20px; margin-bottom: 10px">환율</p>
+          <script>
+            getExchangingRate();
+            getWeather();
+          </script>
+        </div>
+      </div>
+      <!-- 2페이지 -->
+      <div class="scroll-area">
+        <div class="page2-container">
+          <p class="page2-title">아름다운 바다</p>
+          <div class="card-container">
+            <!-- 스쿠버다이빙 -->
+            <div class="card">
+              <a
+                href="https://www.ulleung.go.kr/tour/page.do?mnu_uid=1656&"
+                target="blank"
+              >
+                <img class="card-img" src="./libs/images/scuba_diving.jpeg" />
+                <div class="card-txt">
+                  <p class="card-name">스쿠버다이빙</p>
+                  <p class="card-description">스쿠버다이빙</p>
+                </div>
+              </a>
+            </div>
+            <!-- 해상관광 -->
+            <div class="card">
+              <a
+                href="https://www.ulleung.go.kr/tour/page.do?mnu_uid=1650&"
+                target="blank"
+              >
+                <img class="card-img" src="./libs/images/cruise.png" />
+                <div class="card-txt">
+                  <p class="card-name">해상관광</p>
+                  <p class="card-description">해상관광</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 3페이지 -->
+      <div class="scroll-area">
+        <div class="page3-container">
+          <p class="page3-title">다양한 먹거리</p>
+          <div class="card-container">
+            <!-- 오징어 -->
+            <div class="card">
+              <img class="card-img" src="./libs/images/squid.png" />
+              <div class="card-txt">
+                <p class="card-name">오징어</p>
+                <p class="card-description">오징어</p>
+              </div>
+            </div>
+            <!-- 독도새우 -->
+            <div class="card">
+              <img class="card-img" src="./libs/images/shrimp.jpg" />
+              <div class="card-txt">
+                <p class="card-name">독도새우</p>
+                <p class="card-description">독도새우</p>
+              </div>
+            </div>
+
+            <!-- 약소 -->
+            <div class="card">
+              <img class="card-img" src="./libs/images/beef.png" />
+              <div class="card-txt">
+                <p class="card-name">약소</p>
+                <p class="card-description">약소</p>
+              </div>
+            </div>
+            <!-- 산채 정식 -->
+            <div class="card">
+              <img class="card-img" src="./libs/images/sanchae.jpg" />
+              <div class="card-txt">
+                <p class="card-name">산채 정식</p>
+                <p class="card-description">산채 정식</p>
+              </div>
+            </div>
+            <!-- 호박엿 -->
+            <div class="card">
+              <img class="card-img" src="./libs/images/pumpkin.jpg" />
+              <div class="card-txt">
+                <p class="card-name">호박엿</p>
+                <p class="card-description">호박엿</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="scroll-area">4</div>
+      <div class="scroll-area">5</div> -->
+    </div>
+  </body>
+</html>
