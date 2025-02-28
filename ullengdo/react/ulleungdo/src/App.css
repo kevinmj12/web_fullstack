@@ -17,15 +17,6 @@ body {
   height: 100vh;
 }
 
-/* 3페이지 */
-.page3-container {
-  padding: 30px;
-}
-
-.page3-title {
-  font-size: 50px;
-}
-
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
