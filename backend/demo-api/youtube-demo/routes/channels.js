@@ -10,7 +10,7 @@ function validationError(req, res, next) {
   if (!result.isEmpty()) {
     return res.status(400).json(result.array());
   }
-  next();
+  return next();
 }
 
 function notFoundChannel(res) {
@@ -45,10 +45,9 @@ router
     [
       body("userId").notEmpty().isInt().withMessage("숫자 입력 필요"),
       body("name").notEmpty().isString().withMessage("문자 입력 필요"),
+      validationError,
     ],
     (req, res) => {
-      validationError(req, res);
-
       const { name, userId } = req.body;
 
       let sql = `INSERT INTO channels (name, user_id) 
@@ -74,9 +73,7 @@ router
 router
   .route("/:id")
   // 채널 개별 조회
-  .get(param("id").notEmpty(), (req, res) => {
-    validationError(req, res);
-
+  .get([param("id").notEmpty(), validationError], (req, res) => {
     let { id } = req.params;
     id = parseInt(id);
 
@@ -100,10 +97,12 @@ router
   })
   // 채널 개별 수정
   .put(
-    [param("id").notEmpty(), body("name").notEmpty().isString()],
+    [
+      param("id").notEmpty(),
+      body("name").notEmpty().isString(),
+      validationError,
+    ],
     (req, res) => {
-      validationError(req, res);
-
       let { id } = req.params;
       id = parseInt(id);
       let { name } = req.body;
@@ -127,9 +126,7 @@ router
     }
   )
   // 채널 개별 삭제
-  .delete(param("id").notEmpty(), (req, res) => {
-    validationError(req, res);
-
+  .delete([param("id").notEmpty(), validationError], (req, res) => {
     let { id } = req.params;
     id = parseInt(id);
 
