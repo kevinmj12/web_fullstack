@@ -21,10 +21,28 @@
   }
 }
 
-#page1-container {
+.page1-container {
+  display: flex;
+  font-family: "Pretendard";
+  p {
+    margin: 0;
+  }
+}
+
+.exchanging-rate {
   display: block;
   width: fit-content;
   height: fit-content;
+  border: 2px gray solid;
+  border-radius: 16px;
+  margin: 15px;
+  padding: 15px 20px 15px 20px;
+}
+
+.weather {
+  display: block;
+  /* width: fit-content;
+  height: fit-content; */
   border: 2px gray solid;
   border-radius: 16px;
   margin: 15px;
@@ -33,4 +51,20 @@
   p {
     margin: 0;
   }
+}
+
+.weather-inside {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: fit-content;
+  height: fit-content; */
+}
+
+.weather-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }

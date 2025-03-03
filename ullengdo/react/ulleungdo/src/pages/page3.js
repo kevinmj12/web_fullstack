@@ -13,7 +13,7 @@ export default function Page2() {
         <p className="page3-title">다양한 먹거리</p>
         <div className="card-container">
           {/*  오징어  */}
-          <div class="card">
+          <div className="card">
             <img alt="" class="card-img" src={squid} />
             <div className="card-txt">
               <p className="card-name">오징어</p>
@@ -22,7 +22,7 @@ export default function Page2() {
           </div>
           {/* 독도새우 */}
           <div className="card">
-            <img alt="" class="card-img" src={shrimp} />
+            <img alt="" className="card-img" src={shrimp} />
             <div className="card-txt">
               <p className="card-name">독도새우</p>
               <p className="card-description">독도새우</p>
@@ -31,7 +31,7 @@ export default function Page2() {
 
           {/* 약소 */}
           <div className="card">
-            <img alt="" class="card-img" src={beef} />
+            <img alt="" className="card-img" src={beef} />
             <div className="card-txt">
               <p className="card-name">약소</p>
               <p className="card-description">약소</p>
@@ -39,7 +39,7 @@ export default function Page2() {
           </div>
           {/* 산채 정식 */}
           <div className="card">
-            <img alt="" class="card-img" src={sanchae} />
+            <img alt="" className="card-img" src={sanchae} />
             <div className="card-txt">
               <p className="card-name">산채 정식</p>
               <p className="card-description">산채 정식</p>
@@ -47,7 +47,7 @@ export default function Page2() {
           </div>
           {/* 호박엿 */}
           <div className="card">
-            <img alt="" class="card-img" src={pumpkin} />
+            <img alt="" className="card-img" src={pumpkin} />
             <div className="card-txt">
               <p className="card-name">호박엿</p>
               <p className="card-description">호박엿</p>
