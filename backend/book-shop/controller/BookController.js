@@ -1,15 +1,18 @@
 const conn = require("../mysql");
 const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
+const ensureAuthorization = require("../auth");
 
 const books = (req, res) => {
+  let booksRes = {};
   let categoryId = req.query.categoryid;
   let isNew = req.query.isnew;
   let { limit, page } = req.query;
   limit = parseInt(limit);
   page = parseInt(page);
 
-  let sql = `SELECT *, (SELECT count(*) FROM likes WHERE books.id = liked_book_id) AS likes FROM books`; // 전체 도서 조회
+  let sql = `SELECT SQL_CALC_FOUND_ROWS *, (SELECT count(*) FROM likes WHERE books.id = liked_book_id) AS likes FROM books`; // 전체 도서 조회
   let values = [];
   if (categoryId && isNew) {
     // 카테고리별 신간 도서 조회
@@ -34,22 +37,62 @@ const books = (req, res) => {
         msg: `Error: ${err.code}`,
       });
     }
-    return res.status(StatusCodes.OK).json(results);
+    if (results.length) {
+      booksRes.books = results;
+    } else {
+      return res.status(StatusCodes.NOT_FOUND).end();
+    }
+  });
+
+  sql += `SELECT found_rows()`;
+
+  conn.query(sql, values, (err, results) => {
+    if (err) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        msg: `Error: ${err.code}`,
+      });
+    }
+
+    let pagination = {};
+    pagination.page = page;
+    pagination.totalCount = results[0].found_rows();
+
+    booksRes.pagination = pagination;
+
+    return res.status(StatusCodes.OK).json(booksRes);
   });
 };
 
 // 개별 도서 조회
 const bookDetail = (req, res) => {
-  let { id } = req.params;
-  let { userId } = req.body;
-  id = parseInt(id);
-  const values = [userId, id, id];
+  const token = ensureAuthorization(req);
+  let sql;
 
-  const sql = `SELECT * ,
+  if (token instanceof jwt.TokenExpiredError) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      message: "로그인 세션이 만료되었습니다. 로그인이 필요합니다.",
+    });
+  } else if (token instanceof jwt.JsonWebTokenError) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      message: "잘못된 토큰입니다.",
+    });
+  } else if (token instanceof ReferenceError) {
+    sql = `SELECT * ,
+    (SELECT count(*) FROM likes WHERE liked_book_id = books.id) AS likes,
+    FROM books LEFT JOIN categories
+    ON books.category_id = categories.category_id WHERE books.id=?;`;
+  } else {
+    sql = `SELECT * ,
   (SELECT count(*) FROM likes WHERE liked_book_id = books.id) AS likes,
   (SELECT EXISTS (SELECT * FROM likes WHERE user_id = ? AND liked_book_id = ?)) AS liked
   FROM books LEFT JOIN categories
   ON books.category_id = categories.category_id WHERE books.id=?;`;
+  }
+
+  let { id } = req.params;
+  id = parseInt(id);
+
+  const values = [token.id, id, id];
 
   conn.query(sql, values, (err, results) => {
     if (err) {

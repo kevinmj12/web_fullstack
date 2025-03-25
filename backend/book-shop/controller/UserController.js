@@ -49,6 +49,7 @@ const login = (req, res) => {
     if (loginUser && hashPassword == loginUser.password) {
       const token = jwt.sign(
         {
+          id: loginUser.id,
           email: loginUser.email,
         },
         process.env.PRIVATE_KEY,
@@ -57,10 +58,11 @@ const login = (req, res) => {
           issuer: "minje",
         }
       );
-      res.cookie("token", {
+      res.cookie("token", token, {
         httpOnly: true,
       });
-      return res.status(StatusCodes.OK).json(results);
+
+      return res.status(StatusCodes.OK).json("results");
     } else {
       return res.status(StatusCodes.UNAUTHORIZED).end();
     }
