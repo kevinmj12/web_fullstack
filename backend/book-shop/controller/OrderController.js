@@ -1,8 +1,21 @@
 const { StatusCodes } = require("http-status-codes");
-const connection = require("../mysql");
+const connection = require("../mysql-async");
+const ensureAuthorization = require("../auth");
 
 const order = async (req, res) => {
   const conn = await connection();
+
+  const token = ensureAuthorization(req);
+
+  if (token instanceof jwt.TokenExpiredError) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      message: "로그인 세션이 만료되었습니다. 로그인이 필요합니다.",
+    });
+  } else if (token instanceof jwt.JsonWebTokenError) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      message: "잘못된 토큰입니다.",
+    });
+  }
 
   const { items, delivery, totalCounts, totalPrice, userId, firstBookTitle } =
     req.body;
@@ -80,7 +93,7 @@ const getOrders = async (req, res) => {
 };
 
 const getOrderDetails = async (req, res) => {
-  const { id } = req.params;
+  const { orderId } = req.params;
 
   const conn = await connection();
 
@@ -89,7 +102,7 @@ const getOrderDetails = async (req, res) => {
   ON ordered_books.book_id = books.id 
   WHERE order_id = ?;`;
 
-  const [rows, fields] = await conn.query(sql, id);
+  const [rows, fields] = await conn.query(sql, orderId);
 
   return res.status(StatusCodes.OK).json(rows);
 };
