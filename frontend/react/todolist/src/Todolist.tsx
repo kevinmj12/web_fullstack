@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TodoModal from "./TodoModal";
 
 type Todo = {
   id: number;
@@ -107,6 +108,11 @@ const Todolist: React.FC = () => {
           </div>
         ))}
       </div>
+      <TodoModal
+        show={showDetail}
+        todo={selectedTodo}
+        handleClose={handleCloseDetail}
+      ></TodoModal>
     </div>
   );
 };
