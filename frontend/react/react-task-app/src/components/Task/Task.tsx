@@ -10,9 +10,9 @@ type TTaskProps = {
 };
 
 const Task: React.FC<TTaskProps> = ({
-  index,
-  id,
-  boardId,
+  // index,
+  // id,
+  // boardId,
   taskName,
   taskDescription,
 }) => {
