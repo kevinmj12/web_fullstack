@@ -3,14 +3,9 @@ import Home from "./pages/Home";
 import Layout from "./components/layout/Layout";
 
 import ThemeSwitcher from "./components/header/ThemeSwitcher";
-import {
-  BookStoreThemeProvider,
-  ThemeContext,
-} from "./components/context/ThemeContext";
+import { BookStoreThemeProvider } from "./components/context/ThemeContext";
 
 function App() {
-  const { themeName, toggleTheme } = useContext(ThemeContext);
-
   return (
     <BookStoreThemeProvider>
       <ThemeSwitcher />
