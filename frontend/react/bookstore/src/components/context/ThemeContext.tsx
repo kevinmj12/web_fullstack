@@ -38,7 +38,7 @@ export const BookStoreThemeProvider = ({
       THEME_LOCALSTORAGE_KEY
     ) as ThemeName;
 
-    setThemeName(savedThemeName === "light" ? "dark" : "light");
+    setThemeName(savedThemeName === "light" ? "light" : "dark");
   }, []);
 
   return (
