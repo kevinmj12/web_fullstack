@@ -26,7 +26,7 @@ const FooterStyle = styled.footer`
 
   .logo {
     img {
-      width: 140px;
+      width: 70px;
     }
   }
   .copyright {
