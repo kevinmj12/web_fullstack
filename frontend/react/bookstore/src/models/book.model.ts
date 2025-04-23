@@ -8,7 +8,7 @@ export interface Book {
   summary: string;
   detail: string;
   author: string;
-  page: 150;
+  page: number;
   contents: string;
   price: number;
   likes: number;

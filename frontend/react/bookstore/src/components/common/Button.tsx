@@ -15,9 +15,15 @@ const Button: React.FC<ButtonProps> = ({
   size,
   scheme,
   disabled,
+  onClick,
 }) => {
   return (
-    <ButtonStyle size={size} scheme={scheme} disabled={disabled}>
+    <ButtonStyle
+      size={size}
+      scheme={scheme}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
     </ButtonStyle>
   );
