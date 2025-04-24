@@ -8,6 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   scheme: ButtonScheme;
   disabled?: boolean;
   isLoading?: boolean;
+  className?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,14 +16,18 @@ const Button: React.FC<ButtonProps> = ({
   size,
   scheme,
   disabled,
+  isLoading,
   onClick,
+  className,
 }) => {
   return (
     <ButtonStyle
       size={size}
       scheme={scheme}
       disabled={disabled}
+      isLoading={isLoading}
       onClick={onClick}
+      className={className}
     >
       {children}
     </ButtonStyle>

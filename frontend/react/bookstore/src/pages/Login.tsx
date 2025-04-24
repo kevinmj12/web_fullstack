@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { login } from "../api/auth.api";
 import { useAlert } from "../hooks/useAlert";
 import { SignupProps, SignupStyle } from "./Signup";
-import { useAuthStore } from "../store/authStore";
+import { getToken, useAuthStore } from "../store/authStore";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const Login = () => {
     login(data).then(
       (res) => {
         storeLogin(res.token);
+        // console.log(res.token);
         showAlert("로그인에 성공하였습니다");
         navigate("/");
       },
