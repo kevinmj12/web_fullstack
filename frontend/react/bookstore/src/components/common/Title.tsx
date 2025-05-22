@@ -7,8 +7,12 @@ interface TitleProps {
   color?: ColorKey;
 }
 
-const Title: React.FC<TitleProps> = ({ children, size }) => {
-  return <TitleStyle size={size}>{children}</TitleStyle>;
+const Title: React.FC<TitleProps> = ({ children, size, color }) => {
+  return (
+    <TitleStyle size={size} color={color}>
+      {children}
+    </TitleStyle>
+  );
 };
 
 const TitleStyle = styled.h1<Omit<TitleProps, "children">>`
