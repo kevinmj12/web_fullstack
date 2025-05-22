@@ -54,7 +54,7 @@ const login = (req, res) => {
         },
         process.env.PRIVATE_KEY,
         {
-          expiresIn: "5m",
+          expiresIn: "180m",
           issuer: "minje",
         }
       );
@@ -62,7 +62,7 @@ const login = (req, res) => {
         httpOnly: true,
       });
 
-      return res.status(StatusCodes.OK).json("results");
+      return res.status(StatusCodes.OK).json({ ...results[0], token: token });
     } else {
       return res.status(StatusCodes.UNAUTHORIZED).end();
     }

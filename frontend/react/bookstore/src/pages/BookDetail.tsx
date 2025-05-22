@@ -14,7 +14,6 @@ const bookInfoList = [
     label: "카테고리",
     key: "categoryName",
     filter: (book: IBookDetail) => {
-      console.log(book);
       return (
         <Link to={`books?category_id=${book.category_id}`}>
           {book.category_name}
@@ -52,7 +51,7 @@ const bookInfoList = [
 
 const BookDetail = () => {
   const { bookId } = useParams<{ bookId: string }>();
-  const { book, likeToggle } = useBook(bookId);
+  const { book, likeToggle, reviews } = useBook(bookId);
 
   if (!book) return null;
 

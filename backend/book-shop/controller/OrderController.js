@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const connection = require("../mysql-async");
 const ensureAuthorization = require("../auth");
+const jwt = require("jsonwebtoken");
 
 const order = async (req, res) => {
   const conn = await connection();
@@ -17,8 +18,7 @@ const order = async (req, res) => {
     });
   }
 
-  const { items, delivery, totalCounts, totalPrice, userId, firstBookTitle } =
-    req.body;
+  const { items, delivery, totalCounts, totalPrice, firstBookTitle } = req.body;
 
   let deliveryId;
   let orderId;
@@ -44,7 +44,7 @@ const order = async (req, res) => {
     firstBookTitle,
     totalCounts,
     totalPrice,
-    userId,
+    token.id,
     deliveryId,
   ];
 
@@ -60,7 +60,7 @@ const order = async (req, res) => {
                                   VALUES ?;`;
   let orderedBooksValues = [];
   orderItems.forEach((item) => {
-    orderedBooksValues.push([orderId, item.bookId, item.counts]);
+    orderedBooksValues.push([orderId, item.book_id, item.counts]);
   });
   const [orderedBooksReults] = await conn.query(orderedBooksSql, [
     orderedBooksValues,
@@ -70,7 +70,7 @@ const order = async (req, res) => {
   const deleteResults = await deleteCartItems(conn, items);
 
   // 모든 과정이 완료되었다면 OK 리턴
-  return res.status(StatusCodes.OK).json(results);
+  return res.status(StatusCodes.OK).end();
 };
 
 const deleteCartItems = async (conn, items) => {
@@ -100,7 +100,7 @@ const getOrderDetails = async (req, res) => {
   const sql = `SELECT book_id, title, author, price, counts
   FROM ordered_books LEFT JOIN books
   ON ordered_books.book_id = books.id 
-  WHERE order_id = ?;`;
+  WHERE ordered_books.order_id = ?;`;
 
   const [rows, fields] = await conn.query(sql, orderId);
 

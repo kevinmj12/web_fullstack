@@ -1,6 +1,7 @@
 const conn = require("../mysql");
 const { StatusCodes } = require("http-status-codes");
 const ensureAuthorization = require("../auth");
+const jwt = require("jsonwebtoken");
 
 // 장바구니 추가
 const addCartItems = (req, res) => {
@@ -67,7 +68,7 @@ const getCartItems = (req, res) => {
 
 // 장바구니 제거
 const removeCartItems = (req, res) => {
-  const { itemId } = req.body;
+  const { cartId } = req.body;
 
   const token = ensureAuthorization(req);
   if (token instanceof jwt.TokenExpiredError) {
@@ -81,7 +82,7 @@ const removeCartItems = (req, res) => {
   }
 
   const sql = `DELETE FROM cart_items WHERE id = ?;`;
-  const values = [itemId];
+  const values = [cartId];
 
   conn.query(sql, values, (err, results) => {
     if (err) {
