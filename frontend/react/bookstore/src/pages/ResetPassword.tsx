@@ -3,15 +3,11 @@ import InputText from "../components/common/InputText";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
 import { useForm } from "react-hook-form";
-import { resetPassword, resetRequest, signup } from "../api/auth.api";
-import { useAlert } from "../hooks/useAlert";
 import { SignupProps, SignupStyle } from "./Signup";
-import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const ResetPassword = () => {
-  const navigate = useNavigate();
-  const showAlert = useAlert();
-  const [resetRequested, setResetRequested] = useState(false);
+  const { userResetPassword, userResetRequest, resetRequested } = useAuth();
 
   const {
     register,
@@ -20,18 +16,7 @@ const ResetPassword = () => {
   } = useForm<SignupProps>();
 
   const onSubmit = (data: SignupProps) => {
-    if (resetRequested) {
-      // 초기화
-      resetPassword(data).then(() => {
-        showAlert("비밀번호가 초기화되었습니다.");
-        navigate("/login");
-      });
-    } else {
-      // 요청
-      resetRequest(data).then(() => {
-        setResetRequested(true);
-      });
-    }
+    resetRequested ? userResetPassword(data) : userResetRequest(data);
   };
 
   return (

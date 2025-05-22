@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const ensureAuthorization = require("../auth");
 
 const addLike = (req, res) => {
-  const { likedBookId } = req.body;
+  const { bookId } = req.body;
   const token = ensureAuthorization(req);
 
   if (token instanceof jwt.TokenExpiredError) {
@@ -19,7 +19,7 @@ const addLike = (req, res) => {
   }
 
   const sql = `INSERT INTO likes (user_id, liked_book_id) VALUES (?, ?);`;
-  const values = [token.id, likedBookId];
+  const values = [token.id, bookId];
 
   conn.query(sql, values, (err, results) => {
     if (err) {
@@ -27,12 +27,12 @@ const addLike = (req, res) => {
         msg: `Error: ${err.code}`,
       });
     }
-    return res.status(StatusCodes.CREATED).json(decodedToken);
+    return res.status(StatusCodes.CREATED).json({ msg: "success" });
   });
 };
 
 const removeLike = (req, res) => {
-  const { likedBookId } = req.body;
+  const { bookId } = req.body;
   const token = ensureAuthorization(req);
 
   if (token instanceof jwt.TokenExpiredError) {
@@ -46,7 +46,7 @@ const removeLike = (req, res) => {
   }
 
   const sql = `DELETE FROM likes where user_id=? AND liked_book_id=?;`;
-  const values = [token.id, likedBookId];
+  const values = [token.id, bookId];
 
   conn.query(sql, values, (err, results) => {
     if (err) {

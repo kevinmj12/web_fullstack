@@ -19,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   isLoading,
   onClick,
   className,
+  type,
 }) => {
   return (
     <ButtonStyle
@@ -28,6 +29,7 @@ const Button: React.FC<ButtonProps> = ({
       isLoading={isLoading}
       onClick={onClick}
       className={className}
+      type={type}
     >
       {children}
     </ButtonStyle>

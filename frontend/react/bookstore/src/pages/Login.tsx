@@ -6,12 +6,14 @@ import { useForm } from "react-hook-form";
 import { login } from "../api/auth.api";
 import { useAlert } from "../hooks/useAlert";
 import { SignupProps, SignupStyle } from "./Signup";
-import { getToken, useAuthStore } from "../store/authStore";
+import { useAuthStore } from "../store/authStore";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const showAlert = useAlert();
+  const { showAlert } = useAlert();
   const { storeLogin } = useAuthStore();
+  const { userLogin } = useAuth();
 
   const {
     register,
@@ -20,17 +22,7 @@ const Login = () => {
   } = useForm<SignupProps>();
 
   const onSubmit = (data: SignupProps) => {
-    login(data).then(
-      (res) => {
-        storeLogin(res.token);
-        // console.log(res.token);
-        showAlert("로그인에 성공하였습니다");
-        navigate("/");
-      },
-      (error) => {
-        showAlert("로그인에 실패하였습니다.");
-      }
-    );
+    userLogin(data);
   };
 
   return (
